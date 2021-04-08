@@ -51,7 +51,7 @@ const TopScoreList = ({
           </tr>
         </thead>
         <tbody>
-          {topTen &&
+          {topTen.length > 0 &&
             topTen.map((p, ndx) =>
               <TopScoreRow key={ndx} player={p} />)
           }
