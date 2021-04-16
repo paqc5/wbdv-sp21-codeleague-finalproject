@@ -1,0 +1,100 @@
+[
+  [
+    {
+      "id": 1,
+      "position": "Goalkeeper",
+      "position_short_name": "GKP",
+      "now_cost": 0
+    },
+    {
+      "id": 2,
+      "position": "Goalkeeper",
+      "position_short_name": "GKP",
+      "now_cost": 0
+    }
+  ],
+  [
+    {
+      "id": 1,
+      "position": "Defender",
+      "position_short_name": "DEF",
+      "now_cost": 0
+    },
+    {
+      "id": 2,
+      "position": "Defender",
+      "position_short_name": "DEF",
+      "now_cost": 0
+    },
+    {
+      "id": 3,
+      "position": "Defender",
+      "position_short_name": "DEF",
+      "now_cost": 0
+    },
+    {
+      "id": 4,
+      "position": "Defender",
+      "position_short_name": "DEF",
+      "now_cost": 0
+    },
+    {
+      "id": 5,
+      "position": "Defender",
+      "position_short_name": "DEF",
+      "now_cost": 0
+    }
+  ],
+  [
+    {
+      "id": 1,
+      "position": "Midfielder",
+      "position_short_name": "MID",
+      "now_cost": 0
+    },
+    {
+      "id": 2,
+      "position": "Midfielder",
+      "position_short_name": "MID",
+      "now_cost": 0
+    },
+    {
+      "id": 3,
+      "position": "Midfielder",
+      "position_short_name": "MID",
+      "now_cost": 0
+    },
+    {
+      "id": 4,
+      "position": "Midfielder",
+      "position_short_name": "MID",
+      "now_cost": 0
+    },
+    {
+      "id": 5,
+      "position": "Midfielder",
+      "position_short_name": "MID",
+      "now_cost": 0
+    }
+  ],
+  [
+    {
+      "id": 1,
+      "position": "Forward",
+      "position_short_name": "FWD",
+      "now_cost": 0
+    },
+    {
+      "id": 2,
+      "position": "Forward",
+      "position_short_name": "FWD",
+      "now_cost": 0
+    },
+    {
+      "id": 3,
+      "position": "Forward",
+      "position_short_name": "FWD",
+      "now_cost": 0
+    }
+  ]
+]

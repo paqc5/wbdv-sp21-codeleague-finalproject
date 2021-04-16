@@ -6,47 +6,41 @@ export const findAllPlayers = (dispatch) =>
       dispatch({ type: 'FIND_ALL_PLAYERS', allPlayers: response })})
 
 export const findPlayerByName = (dispatch, infoNameOne, infoNameTwo) =>
-  playerService.findAllPlayers()
+  playerService.findPlayerByName(infoNameOne, infoNameTwo)
     .then(response => {
-      let rs = response.filter(player => {
-        let firstName = player.first_name !== undefined ? player.first_name.toLowerCase() : ""
-        let lastName = player.second_name !== undefined ? player.second_name.toLowerCase() : ""
-        if ((firstName === infoNameOne) || (firstName === infoNameTwo) || (lastName === infoNameOne) || (lastName === infoNameTwo)) {
-          return true
+      if(response !== undefined) {
+        if (response.length === 0) {
+          dispatch({ type: 'PLAYER_NOT_FOUND' })
+        } else {
+          dispatch({ type: 'FIND_PLAYERS_BY_NAME', playersByName: response })
         }
-        return false
-      })
-      
-      if(rs.length === 0) {
-        console.log("entered")
-        dispatch({ type: 'PLAYER_NOT_FOUND'})
-      } else {
-        dispatch({ type: 'FIND_PLAYERS_BY_NAME', playersByName: rs })
       }
     })
 
 export const findPlayerById = (dispatch, playerId) =>
-  playerService.findPlayer(playerId)
+  playerService.findPlayerById(playerId)
     .then(response => {
-      console.log(response)
       dispatch({ type: 'FIND_PLAYER_BY_ID', player: response })
     })
 
-export const findPlayersPositions = (dispatch) =>
-  playerService.findPlayersPositions()
+export const findPlayerDetails = (dispatch, playerId) =>
+  playerService.findPlayerDetails(playerId)
     .then(response => {
-      dispatch({ type: 'FIND_ALL_PLAYERS_POSITIONS', positions: response })
+      dispatch({ type: 'FIND_PLAYER_DETAILS', player: response })
     })
 
-// export const getEventWeek = () => {
-
-// }
+export const findTopTenPlayers = (dispatch) =>
+  playerService.findTopTenPlayers()
+    .then(response => {
+      dispatch({ type: 'FIND_TOP_TEN_PLAYERS', players: response })
+    })
 
 const playerActions = {
   findAllPlayers,
   findPlayerByName,
   findPlayerById,
-  findPlayersPositions
+  findPlayerDetails,
+  findTopTenPlayers
 }
 
 export default playerActions

@@ -8,7 +8,7 @@ const RegisterAd = () => {
       <div className="cdlg-ad-info-container">
         <h4 className="cdlg-ad-title">Connect with friends</h4>
         <p>Maecenas fermentum, orci nec rhoncus gravida, purus velit cursus urna, vitae dignissim felis tortor eu enim.</p>
-        <Link to="/register" className="btn btn-secondary btn-block">Sign Up</Link>
+        <Link to="/register" className="btn btn-secondary btn-block">Register</Link>
       </div>
     </div>
   )

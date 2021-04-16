@@ -1,7 +1,8 @@
 const initialState = {
   players: [],
-  playersPositions: [],
-  playerSelected: {},
+  playerSelected: [],
+  playersDetails: [],
+  topTenPlayers:[],
   searchStatus: 0
 }
 
@@ -14,25 +15,28 @@ const playersReducer = (state = initialState, action) => {
       }
     case 'FIND_PLAYERS_BY_NAME':
       return {
-        ...state,
         players: action.playersByName,
         searchStatus: 1
       }
     case 'PLAYER_NOT_FOUND':
-      console.log("in reducer")
       return {
-        ...state,
         players: [],
         searchStatus: -1
       }
-    case 'FIND_ALL_PLAYERS_POSITIONS':
+    case 'FIND_PLAYER_BY_ID':
       return {
-        playersPositions: action.positions
+        ...state,
+        playerSelected: action.player
       }
-    // case 'FIND_PLAYER_BY_ID':
-    // case 'FIND_PLAYERS_BY_POINTS':
-    // case 'FIND_PLAYERS_BY_POSITION':
-    // case 'FIND_PLAYERS_BY_COST':
+    case 'FIND_PLAYER_DETAILS':
+      return {
+        ...state,
+        playersDetails: action.player
+      }
+    case 'FIND_TOP_TEN_PLAYERS':
+      return {
+        topTenPlayers: action.players
+      }
     default:
       return state
   }

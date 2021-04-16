@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import MatchesRow from './gameweek-matches-row';
 import { connect } from 'react-redux';
-import eventActions from '../actions/event-actions'
+import eventActions from '../../actions/event-actions'
 
 
 
@@ -19,15 +19,10 @@ const MatchesList = ({
   return(
     <div className="cdlg-widget-container cdlg-matches-widget-container">
       <h5>{currentEvent.event_name}</h5>
-      {/* {console.log(currentEvent)} */}
       {currentEvent.matches && 
         currentEvent.matches.map((m, ndx) =>
           <MatchesRow key={ndx} match={m} />)
       }
-      {/* <MatchesRow />
-      <MatchesRow />
-      <MatchesRow />
-      <MatchesRow /> */}
     </div>
   )
 }

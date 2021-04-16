@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 
 const SearchForm = ({
 
@@ -16,6 +17,7 @@ const SearchForm = ({
           <input
             className="form-control"
             type="text"
+            value={cachedItem}
             placeholder={placeholder}
             onChange={key => setCachedItem(key.target.value)}
             onKeyDown={key => {
@@ -24,11 +26,14 @@ const SearchForm = ({
               }
             }} />
         </div>
-        <button 
+        <Link 
+          to="/search/players"
           className="cdlg-button-icon"
-          onClick={() => onClick(cachedItem)}>
+          onClick={() => {
+            onClick(cachedItem)
+          }}>
           <i className="fas fa-search fa-lg"></i>
-        </button>
+        </Link>
       </div>
     </div>
   )

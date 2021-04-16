@@ -1,30 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import SearchForm from './search-form';
-import SelectForm from './select-form';
-import playerActions from '../actions/player-actions'
+import React, { useState } from 'react';
+import {useHistory} from 'react-router-dom'
+import SearchForm from '../forms/search-form';
+import SelectForm from '../forms/select-form';
+import playerActions from '../../actions/player-actions'
 import { connect } from 'react-redux';
 
 
 const SearchScreen = ({
 
-  players = [],
   findAllPlayers,
   findPlayerByName
 
 }) => {
 
   const [advancedSearch, setAdvancedSearch] = useState(false)
+  let history = useHistory()
 
   const getSearchInfo = (searchInfo) => {
     if (searchInfo.length > 0) {
       let infoArray = searchInfo.trim().toLowerCase().split(" ")
+      let name
+      let lastname
       if (infoArray.length === 1) {
-        findPlayerByName(infoArray[0], "")
+        name = infoArray[0]
+        findPlayerByName(name, "noLastname")
+        history.push(`/search/players?name=${name}`)
       } else if (infoArray.length > 1) {
-        findPlayerByName(infoArray[0], infoArray[1])
+        name = infoArray[0]
+        lastname = infoArray[1]
+        findPlayerByName(name, lastname)
+        history.push(`/search/players?name=${name}&lastname=${lastname}`)
       }
     } else {
       findAllPlayers()
+      history.push(`/search/players`)
     }
   }
 
@@ -65,7 +74,8 @@ const SearchScreen = ({
 }
 const stateToPropertyMapper = (state) => {
   return {
-    players: state.playersReducer.players
+    players: state.playersReducer.players,
+    searchStatus: state.playersReducer.searchStatus
   }
 }
 
