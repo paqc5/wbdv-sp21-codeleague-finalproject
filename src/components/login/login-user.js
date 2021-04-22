@@ -1,7 +1,22 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const LoginUser = () => {
+  const [credentials, setCredentials] = useState({});
+  console.log('email:', credentials.fplEmail);
+  console.log('userPassword:', credentials.fplPassword);
+  const login = () => {
+    fetch('http://localhost://3001/api/users/login', {
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    }).then((response) => {
+      console.log('actual user info:', response);
+    });
+  };
+
   return (
     <div className="cdlg-login-form-container">
       <div className="col-12 col-lg-7 mt-4">
@@ -12,27 +27,55 @@ const LoginUser = () => {
         <p>Welcome back! Please login to your account </p>
         <form>
           <div className="row mb-3">
-            <label for="inputUsername" className="col-sm-2 col-form-label mb-3">Username</label>
+            <label for="inputUsername" className="col-sm-2 col-form-label mb-3">
+              FPL Email
+            </label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" id="inputUsername" placeholder="Username" />
+              <input
+                onChange={(e) =>
+                  setCredentials({ ...credentials, fplEmail: e.target.value })
+                }
+                type="text"
+                className="form-control"
+                id="inputUsername"
+                placeholder="Username"
+              />
             </div>
           </div>
           <div className="row mb-3">
-            <label for="inputPassword" className="col-sm-2 col-form-label mb-3">Password</label>
+            <label for="inputPassword" className="col-sm-2 col-form-label mb-3">
+              FPL Password
+            </label>
             <div className="col-sm-10">
-              <input type="password" className="form-control" id="inputPassword" placeholder="Your difficult password" />
+              <input
+                onChange={(e) =>
+                  setCredentials({ ...credentials, fplPassword: e.target.value })
+                }
+                type="password"
+                className="form-control"
+                id="inputPassword"
+                placeholder="Your difficult password"
+              />
             </div>
           </div>
           <div className="row mb-3">
             <div className="col-sm-2 mb-3"></div>
             <div className="col-sm-10 text-center">
-              <button type="submit" className="btn btn-block btn-primary mb-3">Log In</button>
-              <Link to="/register" className="link-primary">No Account? Register</Link>
+              <button
+                onClick={login}
+                type="submit"
+                className="btn btn-block btn-primary mb-3"
+              >
+                Log In
+              </button>
+              <Link to="/register" className="link-primary">
+                No Account? Register
+              </Link>
             </div>
           </div>
         </form>
       </div>
     </div>
-  )
-}
-export default LoginUser
+  );
+};
+export default LoginUser;
