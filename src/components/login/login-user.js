@@ -3,20 +3,25 @@ import { Link } from 'react-router-dom';
 
 const LoginUser = () => {
   const [credentials, setCredentials] = useState({});
+  const [actualUser, setActualUser] = useState({});
   console.log('email:', credentials.fplEmail);
   console.log('userPassword:', credentials.fplPassword);
+
   const login = () => {
     fetch('http://localhost://3001/api/users/login', {
+      method: 'POST',
       credentials: 'include',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify(credentials),
     }).then((response) => {
+      setActualUser(response)
       console.log('actual user info:', response);
     });
   };
 
+  console.log("user:", actualUser)
   return (
     <div className="cdlg-login-form-container">
       <div className="col-12 col-lg-7 mt-4">
@@ -49,7 +54,10 @@ const LoginUser = () => {
             <div className="col-sm-10">
               <input
                 onChange={(e) =>
-                  setCredentials({ ...credentials, fplPassword: e.target.value })
+                  setCredentials({
+                    ...credentials,
+                    fplPassword: e.target.value,
+                  })
                 }
                 type="password"
                 className="form-control"
@@ -63,7 +71,7 @@ const LoginUser = () => {
             <div className="col-sm-10 text-center">
               <button
                 onClick={login}
-                type="submit"
+                type="button"
                 className="btn btn-block btn-primary mb-3"
               >
                 Log In
