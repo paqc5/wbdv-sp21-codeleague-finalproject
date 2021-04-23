@@ -3,11 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 
 const RegisterUser = () => {
   const [user, setUser] = useState({});
-  // console.log('username:', user.fplEmail);
-  // console.log('password:', user.fplPassword);
-  // console.log('firstName:', user.firstName);
-  // console.log('lastName:', user.lastName);
-  // console.log('email:', user.email);
   const history = useHistory();
   const register = () => {
     console.log('user:', user);
@@ -19,15 +14,21 @@ const RegisterUser = () => {
         'content-type': 'application/json',
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        return response.json();
+      })
       .catch((error) => {
-        console.log("Registration Component" + error);
+        // user already exists
+        console.log(error);
       })
       .then((response) => {
-        console.log('registration response: response');
-        // history.push('/login');
+        if (response.registered === true) {
+          // authentication succesful
+          history.push('/login');
+        } else {
+          // fpl credentials do not exist
+        }
       });
-    // push user to login page after registration
   };
   return (
     <div className="cdlg-register-form-container">
@@ -120,7 +121,7 @@ const RegisterUser = () => {
             <div className="col-sm-10 text-center">
               <button
                 onClick={register}
-                type="submit"
+                type="button"
                 className="btn btn-block btn-primary mb-3"
               >
                 Register
