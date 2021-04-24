@@ -12,12 +12,12 @@ const NavigationBar = () => {
           Code<br />League
         </Link>
         <div className="align-self-center">
-          <ul class="nav">
-            <li class="nav-item">
-              <Link to="/" class="nav-link active" aria-current="page">Home</Link>
+          <ul className="nav">
+            <li className="nav-item">
+              <Link to="/" className="nav-link active" aria-current="page">Home</Link>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Other Link</a>
+            <li className="nav-item">
+              <a className="nav-link" href="#">Other Link</a>
             </li>
           </ul>
         </div>

@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import userService from '../../services/user-service'
 
 const LoginUser = () => {
+
+  const history = useHistory()
   const [credentials, setCredentials] = useState({});
-  const [actualUser, setActualUser] = useState({});
-  console.log('email:', credentials.fplEmail);
-  console.log('userPassword:', credentials.fplPassword);
+  const [userNotFound, setUserNotFound] = useState(false)
+  const [wrongCredentials, setWrongCredentials] = useState(false)
 
   const login = () => {
-    fetch('http://localhost://3001/api/users/login', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    }).then((response) => {
-      setActualUser(response)
-      console.log('actual user info:', response);
-    });
-  };
+    console.log(credentials)
+    userService.loginUser(credentials)
+      .then(response => {
+        if (response === 0) {
+          setUserNotFound(true)
+        } else if (response === -1) {
+          setWrongCredentials(true)
+        } else {
+          history.push("/profile")
+        }
+      })
+  }
 
-  console.log("user:", actualUser)
   return (
     <div className="cdlg-login-form-container">
       <div className="col-12 col-lg-7 mt-4">
@@ -31,40 +32,55 @@ const LoginUser = () => {
         </h1>
         <p>Welcome back! Please login to your account </p>
         <form>
-          <div className="row mb-3">
-            <label for="inputUsername" className="col-sm-2 col-form-label mb-3">
-              FPL Email
-            </label>
-            <div className="col-sm-10">
-              <input
-                onChange={(e) =>
-                  setCredentials({ ...credentials, fplEmail: e.target.value })
-                }
-                type="text"
-                className="form-control"
-                id="inputUsername"
-                placeholder="Username"
-              />
-            </div>
+          <div className="row">
+            <div className="col-sm-2"></div>
+            {wrongCredentials &&
+              <div class="alert alert-danger col-12 col-sm-10" role="alert">
+                Incorrect username or password
+              </div>
+            }
+            {userNotFound &&
+              <div class="alert alert-danger col-12 col-sm-10" role="alert">
+              Couldn't find your CodeLeague Account. Enter a different account or <Link to="/register" className="link-primary">
+                create a new one
+              </Link>
+              </div>
+            }
           </div>
           <div className="row mb-3">
-            <label for="inputPassword" className="col-sm-2 col-form-label mb-3">
-              FPL Password
+            <label
+              htmlFor="inputUsername"
+              className="col-sm-2 col-form-label">
+              Username
             </label>
-            <div className="col-sm-10">
-              <input
-                onChange={(e) =>
-                  setCredentials({
-                    ...credentials,
-                    fplPassword: e.target.value,
-                  })
-                }
-                type="password"
-                className="form-control"
-                id="inputPassword"
-                placeholder="Your difficult password"
-              />
-            </div>
+            <input
+              onChange={(e) =>
+                setCredentials({ ...credentials, username: e.target.value })
+              }
+              type="text"
+              className="form-control col-sm-10"
+              id="inputUsername"
+              placeholder="Username"
+            />
+          </div>
+          <div className="row mb-3">
+            <label
+              htmlFor="inputPassword"
+              className="col-sm-2 col-form-label">
+              Password
+            </label>
+            <input
+              onChange={(e) =>
+                setCredentials({
+                  ...credentials,
+                  password: e.target.value,
+                })
+              }
+              type="password"
+              className="form-control col-sm-10"
+              id="inputPassword"
+              placeholder="Your difficult password"
+            />
           </div>
           <div className="row mb-3">
             <div className="col-sm-2 mb-3"></div>
@@ -77,7 +93,7 @@ const LoginUser = () => {
                 Log In
               </button>
               <Link to="/register" className="link-primary">
-                No Account? Register
+                Don't have an account? Register
               </Link>
             </div>
           </div>

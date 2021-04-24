@@ -616,6 +616,18 @@ button {
     margin-bottom: 4rem;
 }
 
+.cdlg-login-form-container .row {
+    align-items: center;
+}
+
+.cdlg-login-form-container .row label {
+    margin-bottom: 1rem;
+}
+
+.cdlg-login-form-container .alert {
+    padding: 0.75rem 1.25rem;
+}
+
 .cdlg-title-backline {
     height: 20px;
     width: 100%;
@@ -636,6 +648,9 @@ button {
     }
     .cdlg-user-squad-row-img {
         width: 5.5vw;
+    }
+    .cdlg-login-form-container .row label {
+        margin-bottom: 0;
     }
 }
 
