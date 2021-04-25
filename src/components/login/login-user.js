@@ -8,20 +8,24 @@ const LoginUser = () => {
   console.log('userPassword:', credentials.fplPassword);
 
   const login = () => {
-    fetch('http://localhost://3001/api/users/login', {
+    //http://localhost:3001/api/users/register
+    fetch('http://localhost:3001/api/users/login', {
       method: 'POST',
       credentials: 'include',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify(credentials),
-    }).then((response) => {
-      setActualUser(response)
-      console.log('actual user info:', response);
-    });
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log('log in response:', response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  console.log("user:", actualUser)
   return (
     <div className="cdlg-login-form-container">
       <div className="col-12 col-lg-7 mt-4">

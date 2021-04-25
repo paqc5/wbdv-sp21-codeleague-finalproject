@@ -18,15 +18,16 @@ const RegisterUser = () => {
         return response.json();
       })
       .catch((error) => {
-        // user already exists
+        /*this block is not being used*/
         console.log(error);
       })
       .then((response) => {
+        console.log("response:", response)
         if (response.registered === true) {
           // authentication succesful
           history.push('/login');
         } else {
-          // fpl credentials do not exist
+          // fpl credentials do not exist OR user already exists 
         }
       });
   };
