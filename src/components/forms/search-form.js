@@ -22,18 +22,19 @@ const SearchForm = ({
             onChange={key => setCachedItem(key.target.value)}
             onKeyDown={key => {
               if(key.code === 'Enter') {
+                setCachedItem("")
                 onClick(cachedItem)
               }
             }} />
         </div>
-        <Link 
-          to="/search/players"
+        <a 
           className="cdlg-button-icon"
           onClick={() => {
+            setCachedItem("")
             onClick(cachedItem)
           }}>
           <i className="fas fa-search fa-lg"></i>
-        </Link>
+        </a>
       </div>
     </div>
   )

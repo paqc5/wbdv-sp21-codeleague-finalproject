@@ -1,26 +1,35 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import userService from '../../services/user-service'
+import { connect } from 'react-redux';
+import authActions from '../../actions/auth-actions'
+import userActions from '../../actions/user-actions'
 
-const LoginUser = () => {
+const LoginUser = ({
+  cookie= null,
+  userLogin
+}) => {
 
   const history = useHistory()
-  const [credentials, setCredentials] = useState({});
+  const [credentials, setCredentials] = useState({})
   const [userNotFound, setUserNotFound] = useState(false)
   const [wrongCredentials, setWrongCredentials] = useState(false)
 
   const login = () => {
-    console.log(credentials)
     userService.loginUser(credentials)
       .then(response => {
-        if (response === 0) {
+        if (response === 404) {
           setUserNotFound(true)
-        } else if (response === -1) {
+          setTimeout(() => { setUserNotFound(false) }, 6000)
+        } else if (response === 409) {
           setWrongCredentials(true)
+          setTimeout(() => { setWrongCredentials(false) }, 6000)
         } else {
+          localStorage.setItem('user', response.fplEmail);
+          userLogin(response)
           history.push("/profile")
         }
-      })
+      }).catch(err => console.log(err))
   }
 
   return (
@@ -35,31 +44,31 @@ const LoginUser = () => {
           <div className="row">
             <div className="col-sm-2"></div>
             {wrongCredentials &&
-              <div class="alert alert-danger col-12 col-sm-10" role="alert">
+              <div className="alert alert-danger col-12 col-sm-10" role="alert">
                 Incorrect username or password
               </div>
             }
             {userNotFound &&
-              <div class="alert alert-danger col-12 col-sm-10" role="alert">
-              Couldn't find your CodeLeague Account. Enter a different account or <Link to="/register" className="link-primary">
-                create a new one
+              <div className="alert alert-danger col-12 col-sm-10" role="alert">
+                Couldn't find your CodeLeague Account. Enter a different account or <Link to="/register" className="link-primary">
+                  create a new one
               </Link>
               </div>
             }
           </div>
           <div className="row mb-3">
             <label
-              htmlFor="inputUsername"
+              htmlFor="inputEmail"
               className="col-sm-2 col-form-label">
-              Username
+              FPL Email
             </label>
             <input
               onChange={(e) =>
-                setCredentials({ ...credentials, username: e.target.value })
+                setCredentials({ ...credentials, fplEmail: e.target.value })
               }
               type="text"
               className="form-control col-sm-10"
-              id="inputUsername"
+              id="inputEmail"
               placeholder="Username"
             />
           </div>
@@ -67,13 +76,13 @@ const LoginUser = () => {
             <label
               htmlFor="inputPassword"
               className="col-sm-2 col-form-label">
-              Password
+              FPL Password
             </label>
             <input
               onChange={(e) =>
                 setCredentials({
                   ...credentials,
-                  password: e.target.value,
+                  fplPassword: e.target.value,
                 })
               }
               type="password"
@@ -101,5 +110,17 @@ const LoginUser = () => {
       </div>
     </div>
   );
-};
-export default LoginUser;
+}
+const stateToPropertyMapper = (state) => {
+  return {
+    cookie: state.authReducer.cookie
+  }
+}
+
+const dispatchToPropertyMapper = (dispatch) => {
+  return {
+    userLogin: (user) =>
+      authActions.userLogin(dispatch, user)
+  }
+}
+export default connect(stateToPropertyMapper, dispatchToPropertyMapper)(LoginUser)

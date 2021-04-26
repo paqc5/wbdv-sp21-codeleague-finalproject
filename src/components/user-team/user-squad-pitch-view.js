@@ -2,47 +2,47 @@ import React, { useEffect } from 'react'
 import SquadPlayer from './squad-player'
 import { connect } from 'react-redux';
 import userTeamActions from '../../actions/user-team-actions'
-import PlayersList from '../search/players-list';
 
 const UserSquadPitchView = ({
 
+  cookie = null,
   searchStatus = 0,
-  userTeamPlayers = [],
+  userTeamPlayers = {},
   getUserTeamPlayers
 
 }) => {
 
   useEffect(() => {
-    getUserTeamPlayers()
+    getUserTeamPlayers(cookie._id)
   }, [])
 
   return (
     <div className="cdlg-user-squad-pitch-view">
+      {console.log("lerdngvdfcgvhbjn")}
+      {console.log(userTeamPlayers)}
       <div className="col">
         <img className="cdlg-user-squad-field-img" src="https://fantasy.premierleague.com/static/media/pitch-default.c2e55306.svg" />
       </div>
       <div className="cdlg-user-squad">
         <div className="cdlg-user-squad-rows-container">
-          {userTeamPlayers &&
-            userTeamPlayers.map((positionPlayers, ndx1) =>
-              <div key={ndx1} className="cdlg-user-squad-row">
-                {
-                  positionPlayers.map((player, ndx2) => 
-                    <SquadPlayer
-                      key={ndx2}
-                      player={player}
-                      classAttr={`${searchStatus !== 0 ? 'cdlg-players-searchbox-open' : 'cdlg-players-searchbox-closed'}`} />)
-                }
-              </div>)
+          <div className="cdlg-user-squad-row">
+            {userTeamPlayers &&
+              userTeamPlayers.Goalkeeper.map((player, ndx) =>
+                <SquadPlayer
+                  key={ndx}
+                  player={player}
+                  classAttr={`${searchStatus !== 0 ? 'cdlg-players-searchbox-open' : 'cdlg-players-searchbox-closed'}`} />
+              )
             }
+          </div>)
         </div>
-        {/* <PlayersList /> */}
       </div>
     </div>
   )
 }
 const stateToPropertyMapper = (state) => {
   return {
+    cookie: state.authReducer.cookie,
     searchStatus: state.playersReducer.searchStatus,
     userTeamPlayers: state.userTeamReducer.userTeamPlayers
   }
@@ -50,8 +50,8 @@ const stateToPropertyMapper = (state) => {
 
 const dispatchToPropertyMapper = (dispatch) => {
   return {
-    getUserTeamPlayers: () =>
-      userTeamActions.getUserTeamPlayers(dispatch)
+    getUserTeamPlayers: (userId) =>
+      userTeamActions.getUserTeamPlayers(dispatch, userId)
   }
 }
 

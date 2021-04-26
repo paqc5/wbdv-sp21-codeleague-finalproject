@@ -1,5 +1,5 @@
-[
-  [
+{
+  "Goalkeeper": [
     {
       "id": 1,
       "position": "Goalkeeper",
@@ -13,7 +13,7 @@
       "now_cost": 0
     }
   ],
-  [
+  "Defender": [
     {
       "id": 1,
       "position": "Defender",
@@ -45,7 +45,7 @@
       "now_cost": 0
     }
   ],
-  [
+  "Midfielder": [
     {
       "id": 1,
       "position": "Midfielder",
@@ -77,7 +77,7 @@
       "now_cost": 0
     }
   ],
-  [
+  "Forward": [
     {
       "id": 1,
       "position": "Forward",
@@ -97,4 +97,4 @@
       "now_cost": 0
     }
   ]
-]
+}

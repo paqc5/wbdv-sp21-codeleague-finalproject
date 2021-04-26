@@ -161,16 +161,19 @@ button {
     line-height: inherit;
 }
 
+.cdlg-circled-img,
 .cdlg-circled-button {
     color: #aeaeae;
 }
 
+.cdlg-circled-img i,
 .cdlg-circled-button i {
     font-size: 2.5rem;
     border-radius: 100rem;
     border: 1px solid #dee2e6;
 }
 
+.cdlg-circled-img p,
 .cdlg-circled-button p {
     color: #333;
     font-size: .9rem;
@@ -214,10 +217,19 @@ button {
     width: 100%;
 }
 
-.cdlg-players-list {
-    width: 100%;
+
+/* Players Class */
+
+.cdlg-players-list-container {
+    height: 510px;
+    overflow: auto;
+    white-space: nowrap;
     border-radius: 0.25rem;
     border: 1px solid #dee2e6;
+}
+
+.cdlg-players-list {
+    width: 100%;
     padding: 1.5rem 1rem;
     font-size: 0.9em;
     /* height: inherit;
@@ -325,6 +337,14 @@ button {
     margin-bottom: 0;
     padding: .35rem;
     border-top: 1px solid #dee2e6;
+}
+
+
+/* Users Class */
+
+.cdlg-users-list-container {
+    border-radius: 0.25rem;
+    border: 1px solid #dee2e6;
 }
 
 
@@ -514,7 +534,7 @@ button {
 /* User Squad/Team Class */
 
 .cdlg-user-squad-container {
-    margin-bottom: 1.2rem;
+    margin-bottom: .75rem;
 }
 
 .cdlg-user-squad-pitch-view {
@@ -581,13 +601,16 @@ button {
 
 .cdlg-register-form-container,
 .cdlg-login-form-container,
-.cdlg-profile-container {
+.cdlg-profile-container,
+.cdlg-other-profile-container {
     display: flex;
     justify-content: center;
 }
 
 .cdlg-profile-container h1,
 .cdlg-profile-container p,
+.cdlg-other-profile-container p,
+.cdlg-other-profile-container h1,
 .cdlg-register-form-container h1,
 .cdlg-register-form-container p,
 .cdlg-login-form-container h1,
@@ -597,11 +620,13 @@ button {
 }
 
 .cdlg-profile-container h1,
+.cdlg-other-profile-container h1,
 .cdlg-register-form-container h1,
 .cdlg-login-form-container h1 {
     margin-bottom: 1rem;
 }
 
+.cdlg-other-profile-container h1 span,
 .cdlg-profile-container h1 span,
 .cdlg-register-form-container h1 span,
 .cdlg-login-form-container h1 span {
@@ -616,14 +641,31 @@ button {
     margin-bottom: 4rem;
 }
 
+.cdlg-other-profile-container p {
+    margin-bottom: .5rem;
+}
+
+.cdlg-other-profile-container i {
+    font-size: 6rem;
+}
+
+.cdlg-other-profile-container h6 {
+    padding: .75rem;
+    border-bottom: 1px solid #ced4da;
+    margin-bottom: 1rem;
+}
+
+.cdlg-register-form-container .row,
 .cdlg-login-form-container .row {
     align-items: center;
 }
 
+.cdlg-register-form-container .row label,
 .cdlg-login-form-container .row label {
     margin-bottom: 1rem;
 }
 
+.cdlg-register-form-container .alert,
 .cdlg-login-form-container .alert {
     padding: 0.75rem 1.25rem;
 }
@@ -649,6 +691,7 @@ button {
     .cdlg-user-squad-row-img {
         width: 5.5vw;
     }
+    .cdlg-register-form-container .row label,
     .cdlg-login-form-container .row label {
         margin-bottom: 0;
     }

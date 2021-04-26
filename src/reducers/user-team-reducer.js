@@ -1,5 +1,5 @@
 const initialState = {
-  userTeamPlayers: []
+  userTeamPlayers: {}
 }
 
 const userTeamReducer = (state = initialState, action) => {

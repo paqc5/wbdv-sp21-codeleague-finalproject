@@ -1,7 +1,7 @@
 const userService = require('../services/user-service')
 
-export const getUserTeamPlayers = (dispatch) => {
-  let response = userService.getUserTeamPlayers()
+export const getUserTeamPlayers = (dispatch, userId) => {
+  let response = userService.getUserTeamPlayers(userId)
   dispatch({ type: 'GET_USER_TEAM_PLAYERS', players: response })
 }
 

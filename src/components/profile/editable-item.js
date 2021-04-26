@@ -5,24 +5,26 @@ import { Link } from 'react-router-dom';
 const EditableItem = (
   {
     item,
+    label,
+    editing,
+    setEditing,
     updateItem
   }) => {
-
-  const [editing, setEditing] = useState(false)
+  
   const [cachedItem, setCachedItem] = useState(item)
 
   return (
     <>
-      {!editing &&
+      {editing !== item &&
         <>{item}
           <span className="float-right">
             <button>
-              <i className="fas fa-edit" onClick={() => setEditing(true)}></i>
+              <i className="fas fa-edit" onClick={() => setEditing(item)}></i>
             </button>
           </span>
         </>
       }
-      {editing &&
+      {editing === item &&
         <div className="row">
           <input
             className="form-control col"
@@ -33,8 +35,8 @@ const EditableItem = (
             <button>
               <i className="fas fa-check"
                 onClick={() => {
-                  alert(cachedItem)
-                  setEditing(false)
+                  updateItem(`{"${label}":"${cachedItem}"}`)
+                  setEditing("")
                 }}></i>
             </button>
           </span>

@@ -16,7 +16,6 @@ const TopScoreList = ({
 
   return (
     <div className="cdlg-widget-container cdlg-top-score-widget-container">
-      {console.log(topTenPlayers)}
       <table className="cdlg-table-widget">
         <thead>
           <tr>

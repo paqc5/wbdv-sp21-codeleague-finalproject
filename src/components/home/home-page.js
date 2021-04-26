@@ -1,104 +1,76 @@
-import React from 'react';
-import PlayersList from '../search/players-list';
-import SearchScreen from '../search/search-screen';
-import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import MatchesList from '../widgets/gameweek-matches-list';
-import TopScoreList from '../widgets/top-score-list';
-import ComparePlayersAd from '../ads/compare-players-ad';
-import RegisterAd from '../ads/register-ad';
-import UserSquadPitchView from '../user-team/user-squad-pitch-view';
+import React, {useEffect} from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import HomeAnonymous from './home-anonymous'
+import HomeLogin from './home-login'
 import RegisterUser from '../register/register-user';
 import LoginUser from '../login/login-user';
 import HomeBanner from './home-banner';
-import PlayerInfoDetails from '../search/player-info-details';
 import UserProfile from '../profile/user-profile';
+import FindFriends from '../users/find-friends';
+import OtherUserProfile from '../profile/other-user-profile';
+import { connect } from 'react-redux';
+import authActions from '../../actions/auth-actions'
+
 
 const Home = ({
-
-  searchStatus = 0
-
+  cookie = null,
 }) => {
 
   return (
     <div className="col">
-      {/* <Route path="/" exact={true}>
-        <Link to="/anonymousUser">Anonymous User</Link><br/>
-        <Link to="/loggedUser">Logged User</Link><br />
-        <Link to="/register">Register</Link><br />
-        <Link to="/login">Login</Link>
-      </Route> */}
-      <Route path="/register" exact={true}>
-        <RegisterUser />
-      </Route>
-      <Route path="/login" exact={true}>
-        <LoginUser />
-      </Route>
-      <Route path="/profile" exact={true}>
-        <UserProfile/>
-      </Route>
-      <Route path="/a" exact={true}>
-        {/* <div className="row">
-          <h1 className="mb-4">Home</h1>
-        </div> */}
-        {/* Anonymous Users */}
-        <HomeBanner />
-        <div className="row">
-          <div className="cdlg-matches-list-container col-12 col-md-4 col-lg-3">
-            <MatchesList />
-          </div>
-          <div className="col-12 col-md-8 col-lg-9">
-            <div className="cdlg-ads-container">
-              <ComparePlayersAd />
-              <RegisterAd />
-            </div>
-            <div className="cdlg-top-score-container">
-              <TopScoreList />
-            </div>
-          </div>
-        </div>
-      </Route>
-      {/* Logged In Users */}
-      <Route path={["/", "/search/players", "/search/players/:playerId/details"]} exact={true}>
-        <HomeBanner/>
-        <div className="row">
-          <SearchScreen />
-        </div>
-        <div className="row">
-          <div className={`cdlg-user-squad-container col-12 cdlg-lg-col ${searchStatus === 0 ? 'p-0' : ''}`}>
-            <Route path="/search/players/:playerId/details" exact={true}>
-              <PlayerInfoDetails/>
-            </Route>
-            <UserSquadPitchView />
-          </div>
-          {searchStatus !== 0 &&
-            <Route path={["/search/players", "/search/players/:playerId/details"]} exact={true}>
-              <div className="cdlg-players-list-container col-12 col-lg-3-5">
-                <PlayersList />
-              </div>
-            </Route>
-          }
-        </div>
-        {/* <div className="row">
-          <div className="cdlg-top-score-container cdlg-top-score-login-user col-12 col-md-7 col-lg-8">
-            <TopScoreList />
-          </div>
-          <div className="cdlg-matches-list-container col-12 col-md-5 col-lg-4">
-            <MatchesList />
-          </div>
-        </div> */}
-      </Route>
+      {/* Register Component */}
+      <Route 
+        path="/register" 
+        exact={true}
+        render={() => <RegisterUser />} />
+      {/* Login Component */}
+      <Route 
+        path="/login" 
+        exact={true}
+        render={() => cookie ? '' : <LoginUser />} />
+      {/* Profile Component */}
+      <Route
+        path={["/profile"]}
+        exact={true}
+        render={() => cookie ? <UserProfile /> : <Redirect to="/" />} />
+      {/* Other User Profile Component */}
+      <Route
+        path={["/users/profile/:username"]}
+        exact={true}
+        render={() => <OtherUserProfile/>} />
+      {/* Banner Component */}
+      <Route
+        path={["/", "/search/players", "/search/players/:playerId/details", "/search/users", "/search/users/:userId"]}
+        exact={true}
+        render={() => <HomeBanner />} />
+      {/* Logged In Users Component */}
+      <Route 
+        path={["/", "/search/players", "/search/players/:playerId/details"]}
+        exact={true}
+        render={() => cookie ? <HomeLogin /> : <Redirect to="/" />}/>
+      {/* Anonymous Users Component */}
+      <Route 
+        path={["/", "/search/players", "/search/players/:playerId/details"]}
+        exact={true}
+        render={() => <HomeAnonymous /> }/>
+      {/* Find Friends Component */}
+      <Route 
+        path={["/search/users", "/search/users/:userId"]}
+        exact={true}
+        render={() => <FindFriends /> }/>
     </div>
   )
 }
 const stateToPropertyMapper = (state) => {
   return {
-    searchStatus: state.playersReducer.searchStatus
+    cookie: state.authReducer.cookie
   }
 }
 
 const dispatchToPropertyMapper = (dispatch) => {
-  return {}
+  return {
+    userLogin: (user) =>
+      authActions.userLogin(dispatch, user)
+  }
 }
-
 export default connect(stateToPropertyMapper, dispatchToPropertyMapper)(Home)

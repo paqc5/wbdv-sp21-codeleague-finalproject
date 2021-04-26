@@ -1,10 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import authActions from '../../actions/auth-actions'
 
-const NavigationBar = () => {
+const NavigationBar = ({
+
+  cookie = null,
+  userLogout
+
+}) => {
+
+  const history = useHistory()
+
+  const logout = () => {
+    localStorage.removeItem('user')
+    userLogout()
+    history.push("/")
+  }
 
   return (
     <div className="cdlg-navigation-bar">
+      {console.log(cookie)}
       <div className="container d-flex justify-content-between">
         <Link
           to="/"
@@ -17,18 +33,41 @@ const NavigationBar = () => {
               <Link to="/" className="nav-link active" aria-current="page">Home</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Other Link</a>
+              <Link to="/search/users" className="nav-link active" aria-current="page">Find Friends</Link>
             </li>
+            {!cookie &&
+              <li className="nav-item">
+                <Link to="/register" className="nav-link active" aria-current="page">Register</Link>
+              </li>
+            }
+            {cookie &&
+              <li className="nav-item">
+                <button onClick={logout} className="nav-link">Logout</button>
+              </li>
+            }
           </ul>
         </div>
         <div className="align-self-center mr-2">
-          <Link to="/profile" className="cdlg-circled-button">
+          <Link to={cookie ? '/profile' : '/login'} className="cdlg-circled-button">
             <i className="fas fa-user-circle"></i>
-            <p className="mb-0">Log In</p>
+            <p className="mb-0 text-center">{cookie ? cookie.firstName : 'Log In'}</p>
           </Link>
         </div>
       </div>
     </div>
   )
 }
-export default NavigationBar
+const stateToPropertyMapper = (state) => {
+  return {
+    cookie: state.authReducer.cookie
+  }
+}
+
+const dispatchToPropertyMapper = (dispatch) => {
+  return {
+    userLogout: () =>
+      authActions.userLogout(dispatch)
+
+  }
+}
+export default connect(stateToPropertyMapper, dispatchToPropertyMapper)(NavigationBar)
