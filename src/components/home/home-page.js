@@ -30,9 +30,10 @@ const Home = ({
         render={() => cookie ? '' : <LoginUser />} />
       {/* Profile Component */}
       <Route
-        path={["/profile"]}
+        path={["/profile", "/profile/search/users"]}
         exact={true}
-        render={() => cookie ? <UserProfile /> : <Redirect to="/" />} />
+        render={() => <UserProfile />} />
+          {/* cookie ? <UserProfile /> : <Redirect to="/"/> */}
       {/* Other User Profile Component */}
       <Route
         path={["/users/profile/:username"]}

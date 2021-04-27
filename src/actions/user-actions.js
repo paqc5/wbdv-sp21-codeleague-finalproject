@@ -1,3 +1,4 @@
+import { LOGIN_SUCCESS} from "../reducers/auth-types";
 const userService = require('../services/user-service')
 
 export const loginUser = (dispatch, credentials) => {
@@ -10,9 +11,19 @@ export const updateUser = (dispatch, updatedUser) => {
   userService.updateUser(updatedUser)
     .then(response => {
       if(response === 1) {
-        dispatch({ type: 'UPDATE_USER', serverRes: updatedUser })
+        dispatch({ type: LOGIN_SUCCESS, payload: updatedUser })
       } else {
-        dispatch({ type: 'UPDATE_USER', serverRes: response })
+        dispatch({ type: 'SEND_UPDATE_ERROR', serverRes: response })
+      }
+    })
+}
+export const updateOtherUser = (dispatch, updatedUser) => {
+  userService.updateUser(updatedUser)
+    .then(response => {
+      if(response === 1) {
+        dispatch({ type: LOGIN_SUCCESS, payload: updatedUser })
+      } else {
+        dispatch({ type: 'SEND_UPDATE_ERROR', serverRes: response })
       }
     })
 }

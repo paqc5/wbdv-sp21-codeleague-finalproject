@@ -25,6 +25,7 @@ const PlayerInfoDetails = ({
 
   return (
     <div className="cdlg-player-info-details-container">
+      {console.log(playersDetails)}
       {playerSelected &&
         playerSelected.map(player =>
           <>
@@ -43,6 +44,17 @@ const PlayerInfoDetails = ({
           <PlayerPreviousSeasonInfo seasonInfo={playersDetails.season_history} />}
         {playersDetails &&
           <PlayerUpcomingMatches matchesInfo={playersDetails.upcoming_fixtures} />}
+        {playersDetails &&
+          <div className="cdlg-player-title">
+            <p className="text-left">Users with this player: </p>
+            <p>
+              {
+                playersDetails.common_users.map(user => <> | {user} </>)
+              }
+              |
+            </p>
+          </div>
+        }
       </div>
     </div>
   )

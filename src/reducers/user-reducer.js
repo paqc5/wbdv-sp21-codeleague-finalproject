@@ -1,3 +1,5 @@
+import { UPDATE_OTHER_USER_AND_COOKIE_SUCCESS } from "./auth-types";
+
 const initialState = {
   serverRes: null,
   userSearchStatus: 0,
@@ -16,29 +18,10 @@ const userReducer = (state = initialState, action) => {
           currentUser: action.serverRes
         }
       }
-    case 'UPDATE_USER':
-      if (action.serverRes === 500) {
-        return {
-          ...state,
-          serverRes: action.serverRes
-        }
-      } else {
-        return {
-          ...state,
-          currentUser: action.serverRes
-        }
-      }
-    case 'SET_USER_TO_NULL':
+    case 'SEND_UPDATE_ERROR':
       return {
-        currentUser: action.user
-      }
-    case 'GET_CURRENT_USER':
-      return {
-        currentUser: action.currentUser
-      }
-    case 'LOGOUT_USER':
-      return {
-        currentUser: action.value
+        ...state,
+        serverRes: action.serverRes
       }
     case 'FIND_ALL_USERS':
       return {

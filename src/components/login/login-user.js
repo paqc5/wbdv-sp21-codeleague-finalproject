@@ -6,7 +6,7 @@ import authActions from '../../actions/auth-actions'
 import userActions from '../../actions/user-actions'
 
 const LoginUser = ({
-  cookie= null,
+  cookie = null,
   userLogin
 }) => {
 

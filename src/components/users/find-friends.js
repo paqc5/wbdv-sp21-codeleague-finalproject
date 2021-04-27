@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchScreen from './search-screen';
+import SearchScreenFriends from './search-screen-friends';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import UsersList from './users-list';
@@ -12,7 +12,7 @@ const FindFriends = ({
   return (
     <>
       <div className="row">
-        <SearchScreen />
+        <SearchScreenFriends />
       </div>
       <div className="row cdlg-find-friends-container">
         {userSearchStatus !== 0 &&

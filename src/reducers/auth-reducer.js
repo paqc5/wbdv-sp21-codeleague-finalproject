@@ -1,7 +1,8 @@
 import { FETCH_USER, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "./auth-types";
 
 const initialState = {
-  cookie: null
+  cookie: null,
+  serverRes: null,
 }
 
 const authReducer =  (state = initialState, action) => {

@@ -5,8 +5,8 @@ import userActions from '../../actions/user-actions'
 import { connect } from 'react-redux';
 
 
-const SearchScreen = ({
-
+const SearchScreenFriends = ({
+  userSearchStatus = 0,
   findAllUsers,
   findUserByName
 
@@ -22,18 +22,14 @@ const SearchScreen = ({
       if (infoArray.length === 1) {
         name = infoArray[0]
         findUserByName(name, "noLastname")
-        history.push(`/search/users/?name=${name}`)
+        history.push(`profile/search/users/?name=${name}`)
       } else if (infoArray.length > 1) {
         name = infoArray[0]
         lastname = infoArray[1]
         findUserByName(name, lastname)
-        history.push(`/search/users/?name=${name}&lastname=${lastname}`)
+        history.push(`/profile/search/users/?name=${name}&lastname=${lastname}`)
       }
     } 
-    // else {
-    //   findAllPlayers()
-    //   history.push(`/search/players`)
-    // }
   }
 
   return (
@@ -59,4 +55,4 @@ const dispatchToPropertyMapper = (dispatch) => {
       userActions.findUserByName(dispatch, infoNameOne, infoNameTwo)
   }
 }
-export default connect(stateToPropertyMapper, dispatchToPropertyMapper)(SearchScreen)
+export default connect(stateToPropertyMapper, dispatchToPropertyMapper)(SearchScreenFriends)
