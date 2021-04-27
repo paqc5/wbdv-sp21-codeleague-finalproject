@@ -127,8 +127,9 @@ i {
     padding: 0.25rem;
     align-self: center;
 }
+
 .btn-link {
-    color:#333;
+    color: #333;
 }
 
 .fa-button,
@@ -244,8 +245,9 @@ button {
 /* Players Class */
 
 .cdlg-players-list-container {
-    height: 510px;
-    overflow: auto;
+    height: 600px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     white-space: nowrap;
     border-radius: 0.25rem;
     border: 1px solid #dee2e6;
@@ -760,6 +762,9 @@ button {
         -ms-flex: 1 0 0;
         flex: 1 0 0;
     }
+    .cdlg-players-list-container {
+        height: 425px;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -768,6 +773,9 @@ button {
     }
     .cdlg-squad-player-title .short-name {
         display: none;
+    }
+    .cdlg-players-list-container {
+        height: 510px;
     }
 }
 
