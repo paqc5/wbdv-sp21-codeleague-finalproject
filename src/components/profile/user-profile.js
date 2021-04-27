@@ -4,6 +4,7 @@ import userActions from '../../actions/user-actions'
 import SearchScreenFriends from '../users/search-screen-friends';
 import EditableItemButton from './editable-item-button';
 import UsersList from '../users/users-list';
+import { useHistory } from 'react-router-dom';
 
 const UserProfile = ({
   userSearchStatus = 0,
@@ -23,6 +24,9 @@ const UserProfile = ({
     setEditing("")
     updateUser({ ...cachedItem })
   }
+
+  const userTeam = cookie.userTeam
+  const history = useHistory()
 
   return (
     <div className="cdlg-profile-container">
@@ -121,6 +125,29 @@ const UserProfile = ({
                   }} />
               </div>
             }
+          </div>
+        </div>
+        <div className="cdlg-profile-row row">
+          <label
+            htmlFor="inputEmail"
+            className="col-sm-2 col-form-label">Your players: </label>
+          <div className="col-sm-10">
+            {userTeam.Goalkeeper.map((player, ndx) =>
+              <button key={ndx} className="btn-link" onClick={() => history.push(`/search/players/${player.id}/details`)}>
+                &nbsp;| {player.first_name} {player.second_name}
+              </button>)}
+            {userTeam.Defender.map((player, ndx) =>
+              <button key={ndx} className="btn-link" onClick={() => history.push(`/search/players/${player.id}/details`)}>
+                &nbsp;| {player.first_name} {player.second_name}
+              </button>)}
+            {userTeam.Midfielder.map((player, ndx) =>
+              <button key={ndx} className="btn-link" onClick={() => history.push(`/search/players/${player.id}/details`)}>
+                &nbsp;| {player.first_name} {player.second_name}
+              </button>)}
+            {userTeam.Forward.map((player, ndx) =>
+              <button key={ndx} className="btn-link" onClick={() => history.push(`/search/players/${player.id}/details`)}>
+                &nbsp;| {player.first_name} {player.second_name}
+              </button>)}
           </div>
         </div>
         <div className="row">

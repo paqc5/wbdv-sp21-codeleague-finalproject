@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 import userService from '../../services/user-service'
 import { connect } from 'react-redux';
 import authActions from '../../actions/auth-actions'
-import userActions from '../../actions/user-actions'
 
 const LoginUser = ({
   cookie = null,

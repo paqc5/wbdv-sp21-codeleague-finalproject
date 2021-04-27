@@ -30,7 +30,7 @@ const HomeLogin = ({
         </div>
         {searchStatus !== 0 &&
           <Route path={["/search/players", "/search/players/:playerId/details"]} exact={true}>
-            <div className="cdlg-players-list-container col-12 col-lg-3-5">
+            <div className="cdlg-players-list-container col-12 col-lg-3-5 mb-3">
               <PlayersList />
             </div>
           </Route>

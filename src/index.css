@@ -127,6 +127,9 @@ i {
     padding: 0.25rem;
     align-self: center;
 }
+.btn-link {
+    color:#333;
+}
 
 .fa-button,
 button {

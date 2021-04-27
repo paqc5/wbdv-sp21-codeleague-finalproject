@@ -25,7 +25,6 @@ export const updateUser = (updatedUser) => {
 export const registerUser = (userInfo) => {
   const username = userInfo.fplEmail.split('@')
   userInfo.username = username[0]
-  console.log(userInfo)
   return fetch(`${API_URL}/users/register`, {
     method: 'POST',
     body: JSON.stringify(userInfo),
@@ -72,17 +71,39 @@ export const logoutUser = () => {
 }
 
 export const findAllUsers = () => {
-  return (
-    fetch(`${API_URL}/users`)
+  return fetch(`${API_URL}/users`)
       .then(response => response.json())
-  )
 }
 
 export const findUserByName = (inputNameOne, inputNameTwo) => {
-  return (
-    fetch(`${API_URL}/search/users/?firstname=${inputNameOne}&lastname=${inputNameTwo}`)
-      .then(response => response.json())
+  return fetch(`${API_URL}/search/users/?firstname=${inputNameOne}&lastname=${inputNameTwo}`)
+    .then(response => response.json())
+}
+export const followUser = (info) => {
+  return fetch(`${API_URL}/users/following/add`,
+    {
+      method: 'POST',
+      body: JSON.stringify(info),
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
   )
+    .then(response => response.json())
+}
+export const unfollowUser = (info) => {
+  return fetch(`${API_URL}/users/following/delete`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(info),
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
+  )
+    .then(response => response.json())
 }
 
 
@@ -93,6 +114,8 @@ const api = {
   getUserTeamPlayers,
   logoutUser,
   findAllUsers,
-  findUserByName
+  findUserByName,
+  followUser,
+  unfollowUser,
 }
 export default api

@@ -10,7 +10,7 @@ import PlayerUpcomingMatches from './player-upcoming-matches';
 const PlayerInfoDetails = ({
 
   playerSelected = [],
-  playersDetails = [],
+  playersDetails = {common_users: ["None"]},
   findPlayerById,
   findPlayerDetails
 
@@ -25,7 +25,6 @@ const PlayerInfoDetails = ({
 
   return (
     <div className="cdlg-player-info-details-container">
-      {console.log(playersDetails)}
       {playerSelected &&
         playerSelected.map(player =>
           <>
@@ -46,9 +45,9 @@ const PlayerInfoDetails = ({
           <PlayerUpcomingMatches matchesInfo={playersDetails.upcoming_fixtures} />}
         {playersDetails &&
           <div className="cdlg-player-title">
-            <p className="text-left">Users with this player: </p>
+            <p>Users with this player: </p>
             <p>
-              {
+              {playersDetails &&
                 playersDetails.common_users.map(user => <> | {user} </>)
               }
               |

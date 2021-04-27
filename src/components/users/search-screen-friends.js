@@ -22,7 +22,7 @@ const SearchScreenFriends = ({
       if (infoArray.length === 1) {
         name = infoArray[0]
         findUserByName(name, "noLastname")
-        history.push(`profile/search/users/?name=${name}`)
+        history.push(`/profile/search/users/?name=${name}`)
       } else if (infoArray.length > 1) {
         name = infoArray[0]
         lastname = infoArray[1]

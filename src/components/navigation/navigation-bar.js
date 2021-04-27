@@ -20,7 +20,6 @@ const NavigationBar = ({
 
   return (
     <div className="cdlg-navigation-bar">
-      {console.log(cookie)}
       <div className="container d-flex justify-content-between">
         <Link
           to="/"

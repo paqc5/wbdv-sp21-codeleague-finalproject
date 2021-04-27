@@ -1,7 +1,7 @@
 const initialState = {
   players: [],
   playerSelected: [],
-  playersDetails: [],
+  playersDetails: {common_users: ["None"]},
   topTenPlayers:[],
   searchStatus: 0
 }

@@ -9,23 +9,36 @@ const RegisterUser = () => {
   const [userExist, setUserExist] = useState(false)
   const [userNotInFpl, setUserNotInFpl] = useState(false)
   const [userCreated, setUserCreated] = useState(false)
-  const [userInfo, setUserInfo] = useState({role: 'USER'})
+  const [incomplete, setIncomplete] = useState(false)
+  const [userInfo, setUserInfo] = useState({
+    firstName: "",
+    fplEmail: "",
+    fplPassword: "",
+    lastName: "",
+    role: 'USER'
+  })
 
 
   const register = () => {
-    userService.registerUser(userInfo)
-      .then(response => {
-        if (response === 409) {
-          setUserExist(true)
-          setTimeout(() => { setUserExist(false) }, 6000)
-        } else if (response === 404) {
-          setUserNotInFpl(true)
-          setTimeout(() => { setUserNotInFpl(false) }, 6000)
-        } else if (response === 200 || response) {
-          setUserCreated(true)
-          setTimeout(() => { history.push("/login") }, 2000)
-        }
-      })
+    if (userInfo.firstName !== "" && userInfo.lastName !== "" && userInfo.fplEmail !== "" && userInfo.password !== "") {
+      userService.registerUser(userInfo)
+        .then(response => {
+          if (response === 409) {
+            setUserExist(true)
+            setTimeout(() => { setUserExist(false) }, 6000)
+          } else if (response === 404) {
+            setUserNotInFpl(true)
+            setTimeout(() => { setUserNotInFpl(false) }, 6000)
+          } else if (response === 200 || response) {
+            setUserCreated(true)
+            setTimeout(() => { history.push("/login") }, 2000)
+          }
+        })
+    } else {
+      setIncomplete(true)
+      setTimeout(() => setIncomplete(false), 6000)
+    }
+
   }
   return (
     <div className="cdlg-register-form-container">
@@ -51,6 +64,11 @@ const RegisterUser = () => {
             {userNotInFpl &&
               <div className="alert alert-danger col-12 col-sm-10" role="alert">
                 The email or password you entered doesn't match any FPL Account
+            </div>
+            }
+            {incomplete &&
+              <div className="alert alert-danger col-12 col-sm-10" role="alert">
+                Please complete all the fields
             </div>
             }
           </div>
@@ -94,7 +112,7 @@ const RegisterUser = () => {
             <input
               onChange={(e) =>
                 setUserInfo({ ...userInfo, fplEmail: e.target.value })}
-              type="text"
+              type="email"
               className="form-control col-sm-10"
               id="inputEmail"
               placeholder="Your FPL Email"
@@ -118,7 +136,7 @@ const RegisterUser = () => {
             <label htmlFor="inputRole" className="col-sm-2 col-form-label">
               Role
             </label>
-            <select 
+            <select
               className="form-control col-sm-10"
               value={userInfo.role}
               onChange={(event) =>

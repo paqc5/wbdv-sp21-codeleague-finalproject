@@ -1,5 +1,3 @@
-import { UPDATE_OTHER_USER_AND_COOKIE_SUCCESS } from "./auth-types";
-
 const initialState = {
   serverRes: null,
   userSearchStatus: 0,
@@ -8,6 +6,10 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'SUCCESS':
+      return {
+        serverRes: 200
+      }
     case 'LOGIN_USER':
       if (action.serverRes === 404 || action.serverRes === 409) {
         return {

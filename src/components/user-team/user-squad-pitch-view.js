@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SquadPlayer from './squad-player'
 import { connect } from 'react-redux';
 import userTeamActions from '../../actions/user-team-actions'
@@ -7,7 +7,12 @@ const UserSquadPitchView = ({
 
   cookie = null,
   searchStatus = 0,
-  userTeamPlayers = {},
+  userTeamPlayers = {
+    Goalkeeper: [],
+    Defender: [],
+    Midfielder: [],
+    Forward: []
+  },
   getUserTeamPlayers
 
 }) => {
@@ -24,15 +29,45 @@ const UserSquadPitchView = ({
       <div className="cdlg-user-squad">
         <div className="cdlg-user-squad-rows-container">
           <div className="cdlg-user-squad-row">
-            {/* {userTeamPlayers &&
+            {userTeamPlayers &&
               userTeamPlayers.Goalkeeper.map((player, ndx) =>
                 <SquadPlayer
                   key={ndx}
                   player={player}
                   classAttr={`${searchStatus !== 0 ? 'cdlg-players-searchbox-open' : 'cdlg-players-searchbox-closed'}`} />
               )
-            } */}
-          </div>)
+            }
+          </div>
+          <div className="cdlg-user-squad-row">
+            {userTeamPlayers &&
+              userTeamPlayers.Defender.map((player, ndx) =>
+                <SquadPlayer
+                  key={ndx}
+                  player={player}
+                  classAttr={`${searchStatus !== 0 ? 'cdlg-players-searchbox-open' : 'cdlg-players-searchbox-closed'}`} />
+              )
+            }
+          </div>
+          <div className="cdlg-user-squad-row">
+            {userTeamPlayers &&
+              userTeamPlayers.Midfielder.map((player, ndx) =>
+                <SquadPlayer
+                  key={ndx}
+                  player={player}
+                  classAttr={`${searchStatus !== 0 ? 'cdlg-players-searchbox-open' : 'cdlg-players-searchbox-closed'}`} />
+              )
+            }
+          </div>
+          <div className="cdlg-user-squad-row">
+            {userTeamPlayers &&
+              userTeamPlayers.Forward.map((player, ndx) =>
+                <SquadPlayer
+                  key={ndx}
+                  player={player}
+                  classAttr={`${searchStatus !== 0 ? 'cdlg-players-searchbox-open' : 'cdlg-players-searchbox-closed'}`} />
+              )
+            }
+          </div>
         </div>
       </div>
     </div>

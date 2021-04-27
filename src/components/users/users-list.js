@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux';
 import UserActions from '../../actions/user-actions'
 import EditableItemButton from '../profile/editable-item-button';
@@ -20,9 +20,15 @@ const UsersList = ({
   const [cachedUser, setCachedUser] = useState({})
   const history = useHistory()
 
+  const rowAction = (value) => {
+    if (Object.keys(editing).length === 0) {
+      history.push(`/users/profile/${value}`)
+    }
+  }
+
   const updateItem = (ndx) => {
     users[ndx] = cachedUser
-    setEditing({})
+    setEditing(null)
     updateOtherUser({ ...cachedUser }, cookie)
   }
 
@@ -38,7 +44,6 @@ const UsersList = ({
             }}>
             <i className="fas fa-times"></i>
           </button>
-          {userSearchStatus === -1 && <p className="mb-0">User Not Found</p>}
           {userSearchStatus === 1 && <h4>Search Results</h4>}
         </li>
         <li className="list-group-item">
@@ -59,57 +64,38 @@ const UsersList = ({
                 {
                   users.map((user, ndx) => {
                     return (
-                      <>
-                        <tr key={ndx} className="cdlg-row-link">
-                          <UserRow
-                            editing={editing}
-                            user={user}
-                            viewer={cookie.role}
-                            inputValue={setCachedUser}
-                            onClick={() => {
-                              if (!editing) {
-                                history.push(`/users/profile/${user.username}`)
-                              }
-                            }
-                            }
-                          />
-                          {cookie.role === 'ADMIN' &&
-                            <td>
-                              <EditableItemButton
-                                value={user}
-                                editing={editing}
-                                setEditing={() => setEditing(user)}
-                                onClick={() => updateItem(ndx)} />
-                            </td>
-                          }
-                        </tr>
-                      </>
+                      <tr key={ndx} className="cdlg-row-link">
+                        <UserRow
+                          editing={editing}
+                          user={user}
+                          viewer={cookie.role}
+                          inputValue={setCachedUser}
+                          onClick={() => {
+                            rowAction(user.username)
+                          }}
+                        />
+                        {cookie.role === 'ADMIN' &&
+                          <td>
+                            <EditableItemButton
+                              value={user}
+                              editing={editing}
+                              setEditing={() => setEditing(user)}
+                              onClick={() => updateItem(ndx)} />
+                          </td>
+                        }
+                      </tr>
                     )
                   })
                 }
               </tbody>
             </table>
+            {userSearchStatus === -1 &&
+              <div class="alert alert-dark text-center" role="alert">
+                User Not Found
+              </div>
+            }
           </div>
         </li>
-        {
-          // users.map((user, ndx) => {
-          //   return (
-          //     <li key={ndx} className="list-group-item">
-          //       {user !== editing &&
-          //         <button
-          //           className="cdlg-player-button red"
-          //           onClick={() => {
-          //             history.push(`/users/profile/${user.username}`)
-          //           }}>
-          //           {user.firstName} {user.lastName}
-          //         </button>
-          //       }
-          //       {cookie.role === 'ADMIN' &&
-          //         <EditableItemButton/>
-          //       }
-          //     </li>)
-          // })
-        }
       </ul>
     </div>
   )

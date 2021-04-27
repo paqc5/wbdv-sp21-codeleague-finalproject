@@ -1,5 +1,10 @@
 const initialState = {
-  userTeamPlayers: {}
+  userTeamPlayers: {
+    Goalkeeper: [],
+    Defender: [],
+    Midfielder: [],
+    Forward: []
+  }
 }
 
 const userTeamReducer = (state = initialState, action) => {
