@@ -32,8 +32,7 @@ const Home = ({
       <Route
         path={["/profile", "/profile/search/users"]}
         exact={true}
-        render={() => <UserProfile />} />
-          {/* cookie ? <UserProfile /> : <Redirect to="/"/> */}
+        render={() => cookie ? <UserProfile /> : <Redirect to="/" />} />
       {/* Other User Profile Component */}
       <Route
         path={["/users/profile/:username"]}

@@ -32,9 +32,6 @@ const NavigationBar = ({
             <li className="nav-item">
               <Link to="/" className="nav-link active" aria-current="page">Home</Link>
             </li>
-            <li className="nav-item">
-              <Link to="/search/users" className="nav-link active" aria-current="page">Find Friends</Link>
-            </li>
             {!cookie &&
               <li className="nav-item">
                 <Link to="/register" className="nav-link active" aria-current="page">Register</Link>
