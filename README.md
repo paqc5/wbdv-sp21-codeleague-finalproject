@@ -1,3 +1,18 @@
+# User Accounts For Testing
+
+You can use the following accounts to test our app. You have two types of users in our app, Admin which allows you editing other user's information, and regular users where they can just change their own profile information except for the email.
+
+### Admin Role User
+
+email: weiweiliu2018@outlook.com\
+passwrod: 12345678
+
+### User Role User
+
+email: paqc5@hotmail.com\
+password: 12345678
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
