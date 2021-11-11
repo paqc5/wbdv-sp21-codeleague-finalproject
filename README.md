@@ -1,3 +1,5 @@
+This project cannot be built at the moment due to the database on MongoDB Atlas being retired. The problem is still being resolved, but the code is viewable in the interim.
+
 # User Accounts For Testing
 
 You can use the following accounts to test our app. You have two types of users in our app, Admin which allows you editing other user's information, and regular users where they can just change their own profile information except for the email.
