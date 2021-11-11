@@ -1,4 +1,4 @@
-This project cannot be built at the moment due to the database on MongoDB Atlas being retired. The problem is still being resolved, but the code is viewable in the interim.
+**This project cannot be built at the moment due to the database on MongoDB Atlas being retired. The problem is still being resolved, but the code is viewable in the interim.**
 
 # User Accounts For Testing
 
